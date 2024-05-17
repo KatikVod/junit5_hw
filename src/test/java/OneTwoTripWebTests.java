@@ -20,7 +20,7 @@ public class OneTwoTripWebTests extends TestBase {
     @CsvFileSource(resources = "PageShouldChangeUrlAfterLanguageChange.csv")
     @ParameterizedTest(name = "Для языка {0} должен отображаться url {1}")
     @DisplayName("После выбора языка должен измениться url страницы")
-    void pageShouldChangeUrlAfterLanguageChange(String language, String expectedLink) {
+    void pageShouldChangeUrlAfterLanguageChangeTest(String language, String expectedLink) {
         $("[data-locator='currentLocale']").click();
         $$("[data-locator='localeLink']").find(text(language)).click();
         webdriver().shouldHave(currentFrameUrl(expectedLink));
@@ -29,7 +29,7 @@ public class OneTwoTripWebTests extends TestBase {
     @EnumSource(Language.class)
     @ParameterizedTest(name = "Для языка {0} должен отображаться верный заголовок")
     @DisplayName("После выбора языка должен измениться заголовок страницы")
-    void siteShouldDisplayCorrectTitle(Language language) {
+    void siteShouldDisplayCorrectTitleTest(Language language) {
         $("[data-locator='currentLocale']").click();
         $$("[data-locator='localeLink']").find(text(language.name())).click();
         $("[data-locator='Deals'] h2").shouldHave(text(language.title));
@@ -38,13 +38,13 @@ public class OneTwoTripWebTests extends TestBase {
     @MethodSource
     @ParameterizedTest(name = "Пункт меню {0} должен содержать набор ссылок {1}")
     @DisplayName("Пункт меню должен содержать необходимые ссылки")
-    void dropdownMenuShouldHaveCorrectLinks(String menuItem, List<String> expectedLinks) {
+    void dropdownMenuShouldHaveCorrectLinksTest(String menuItem, List<String> expectedLinks) {
         $("[data-locator='nav']").$(byText(menuItem)).click();
         $$("._56Ky8 [data-locator='nav-link']").shouldHave(texts(expectedLinks));
 
     }
 
-    static Stream<Arguments> dropdownMenuShouldHaveCorrectLinks() {
+    static Stream<Arguments> dropdownMenuShouldHaveCorrectLinksTest() {
         return Stream.of(
                 Arguments.of(
                         "Бизнесу",
